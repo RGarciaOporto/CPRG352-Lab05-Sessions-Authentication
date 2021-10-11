@@ -21,7 +21,7 @@
             <label>Password:</label>
             <input type="text" name="password_input">
             <br>
-            <input type="submit" name="login_submit" vlue="Log in">
+            <input type="submit" name="login_submit" value="Log in">
         </form>
         
         <p>${message}</p>
