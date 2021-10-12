@@ -4,12 +4,12 @@ package services;
 import models.User;
 
 public class AccountService {
-    public static User login(String username, String password){
+    public User login(String username, String password){
     if((username.equals("abe") || username.equals("barb")) && password.equals("password")){
         return new User (username, null);
     }
     else
-    return new User(null, null);
+    return null;
     }
     
 }

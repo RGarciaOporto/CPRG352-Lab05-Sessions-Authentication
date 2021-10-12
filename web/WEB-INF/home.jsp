@@ -12,6 +12,7 @@
         <title>Home Page</title>
     </head>
     <body>
-        <h1>hi :)</h1>
+        <h1>Welcome ${username_login} ! :)</h1>
+        <a href="./login">Log Out</a>
     </body>
 </html>

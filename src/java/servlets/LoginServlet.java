@@ -6,6 +6,7 @@
 package servlets;
 
 import java.io.IOException;
+import java.util.HashSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,36 +24,36 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
-       getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
+
+        getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
-    
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            
-            //initialize session    
-            HttpSession session = request.getSession();
-            
-           //retrieve user input for username and password
-           String username = (String)request.getParameter("username_input");
-           String password = (String)request.getParameter("password_input");
-           
-           //verify the above paramaters 
-            User  verification = AccountService.login(username, password);
-           //User verification = new User (username, password);
-           //log user in
-           if(verification.getUsername() != null)
-           response.sendRedirect("home");
-           //display error message if verification fails
-           else {
-           request.setAttribute("username_input", username);
-           request.setAttribute("password_input", password);
-           request.setAttribute("message", "Username or Password are incorrect, please try again.");
-           getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request,response);
-           }
-       
+
+        //initialize session    
+        HttpSession session = request.getSession();
+
+        //retrieve user input for username and password
+        String username = request.getParameter("username_input");
+        String password = request.getParameter("password_input");
+
+        //verify the above paramaters using the AccountService Class
+        AccountService serviceMethods = new AccountService();
+        User verification = serviceMethods.login(username, password);
+        
+        //log user in
+        if (verification.getUsername() != null) {
+            session.setAttribute("username_login", username);
+            response.sendRedirect("home");
+        }//display error message if verification fails
+        else {
+            request.setAttribute("username_input", username);
+            request.setAttribute("password_input", password);
+            request.setAttribute("message", "Username or Password are incorrect, please try again.");
+            getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
+        }
+
     }
 }
-
-  
