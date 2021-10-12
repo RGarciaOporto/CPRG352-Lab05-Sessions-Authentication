@@ -34,7 +34,7 @@ public class LoginServlet extends HttpServlet {
 
         //initialize session    
         HttpSession session = request.getSession();
-
+        
         //retrieve user input for username and password
         String username = request.getParameter("username_input");
         String password = request.getParameter("password_input");
