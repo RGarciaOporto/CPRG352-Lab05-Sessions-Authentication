@@ -24,17 +24,23 @@ public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        //initialize session    
+        HttpSession session = request.getSession();
+        
+        //invalidate session post logout 
+        if(session != null){
+        session.invalidate();
+        }
         getServletContext().getRequestDispatcher("/WEB-INF/login.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         //initialize session    
         HttpSession session = request.getSession();
-        
+       
         //retrieve user input for username and password
         String username = request.getParameter("username_input");
         String password = request.getParameter("password_input");
